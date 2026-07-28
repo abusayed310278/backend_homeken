@@ -1,0 +1,1152 @@
+erDiagram
+    activations {
+        bigint_unsigned id PK
+        bigint_unsigned user_id FK
+        varchar code 
+        tinyint completed 
+        timestamp completed_at 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    admin_notifications {
+        bigint_unsigned id PK
+        varchar title 
+        varchar action_label 
+        varchar action_url 
+        varchar description 
+        timestamp read_at 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar permission 
+    }
+    ads {
+        bigint_unsigned id PK
+        varchar name 
+        datetime expired_at 
+        varchar location 
+        varchar key 
+        varchar image 
+        varchar url 
+        bigint clicked 
+        int order 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+        tinyint open_in_new_tab 
+        varchar tablet_image 
+        varchar mobile_image 
+        varchar ads_type 
+        varchar google_adsense_slot_id 
+    }
+    ads_translations {
+        varchar lang_code PK
+        bigint_unsigned ads_id PK
+        varchar name 
+        varchar image 
+        varchar url 
+        varchar tablet_image 
+        varchar mobile_image 
+    }
+    announcements {
+        bigint_unsigned id PK
+        varchar name 
+        text content 
+        tinyint has_action 
+        varchar action_label 
+        varchar action_url 
+        tinyint action_open_new_tab 
+        tinyint dismissible 
+        datetime start_date 
+        datetime end_date 
+        tinyint is_active 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    announcements_translations {
+        varchar lang_code PK
+        bigint_unsigned announcements_id PK
+        text content 
+        varchar action_label 
+    }
+    audit_histories {
+        bigint_unsigned id PK
+        bigint_unsigned user_id FK
+        varchar user_type 
+        varchar module FK
+        longtext request 
+        varchar action 
+        text user_agent 
+        varchar ip_address 
+        bigint_unsigned actor_id 
+        varchar actor_type 
+        bigint_unsigned reference_id 
+        varchar reference_name 
+        varchar type 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    cache {
+        varchar key PK
+        mediumtext value 
+        bigint expiration FK
+    }
+    cache_locks {
+        varchar key PK
+        varchar owner 
+        bigint expiration FK
+    }
+    careers {
+        bigint_unsigned id PK
+        varchar name 
+        varchar location 
+        varchar salary 
+        varchar description 
+        text content 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    careers_translations {
+        varchar lang_code PK
+        bigint_unsigned careers_id PK
+        varchar name 
+        varchar location 
+        varchar salary 
+        longtext description 
+        longtext content 
+    }
+    categories {
+        bigint_unsigned id PK
+        varchar name 
+        bigint_unsigned parent_id FK
+        text description 
+        varchar status FK
+        bigint_unsigned author_id 
+        varchar author_type 
+        varchar icon 
+        int_unsigned order 
+        tinyint is_featured 
+        tinyint_unsigned is_default 
+        timestamp created_at FK
+        timestamp updated_at 
+    }
+    categories_translations {
+        varchar lang_code PK
+        bigint_unsigned categories_id PK
+        varchar name 
+        text description 
+    }
+    cities {
+        bigint_unsigned id PK
+        varchar name FK
+        varchar slug 
+        bigint_unsigned state_id FK
+        bigint_unsigned country_id 
+        varchar record_id 
+        tinyint order 
+        varchar image 
+        tinyint_unsigned is_default 
+        varchar status FK
+        timestamp created_at 
+        timestamp updated_at 
+        varchar zip_code 
+    }
+    cities_translations {
+        varchar lang_code PK
+        bigint_unsigned cities_id PK
+        varchar name FK
+        varchar slug 
+    }
+    contact_custom_field_options {
+        bigint_unsigned id PK
+        bigint_unsigned custom_field_id 
+        varchar label 
+        varchar value 
+        int order 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    contact_custom_field_options_translations {
+        bigint_unsigned contact_custom_field_options_id PK
+        varchar lang_code PK
+        varchar label 
+        varchar value 
+    }
+    contact_custom_fields {
+        bigint_unsigned id PK
+        varchar type 
+        tinyint required 
+        varchar name 
+        varchar placeholder 
+        int order 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    contact_custom_fields_translations {
+        bigint_unsigned contact_custom_fields_id PK
+        varchar lang_code PK
+        varchar name 
+        varchar placeholder 
+    }
+    contact_replies {
+        bigint_unsigned id PK
+        longtext message 
+        bigint_unsigned contact_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    contacts {
+        bigint_unsigned id PK
+        varchar name 
+        varchar email 
+        varchar phone 
+        varchar address 
+        varchar subject 
+        longtext content 
+        text custom_fields 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    countries {
+        bigint_unsigned id PK
+        varchar name FK
+        varchar nationality 
+        tinyint order 
+        varchar image 
+        tinyint_unsigned is_default 
+        varchar status FK
+        timestamp created_at 
+        timestamp updated_at 
+        varchar code 
+    }
+    countries_translations {
+        varchar lang_code PK
+        bigint_unsigned countries_id PK
+        varchar name FK
+        varchar nationality 
+    }
+    dashboard_widget_settings {
+        bigint_unsigned id PK
+        text settings 
+        bigint_unsigned user_id FK
+        bigint_unsigned widget_id FK
+        tinyint_unsigned order 
+        tinyint_unsigned status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    dashboard_widgets {
+        bigint_unsigned id PK
+        varchar name 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    device_tokens {
+        bigint_unsigned id PK
+        varchar token 
+        varchar platform FK
+        varchar app_version 
+        varchar device_id 
+        varchar user_type FK
+        bigint_unsigned user_id 
+        tinyint is_active FK
+        timestamp last_used_at 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    failed_jobs {
+        bigint_unsigned id PK
+        varchar uuid 
+        text connection 
+        text queue 
+        longtext payload 
+        longtext exception 
+        timestamp failed_at 
+    }
+    faq_categories {
+        bigint_unsigned id PK
+        varchar name 
+        tinyint order 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar description 
+    }
+    faq_categories_translations {
+        varchar lang_code PK
+        bigint_unsigned faq_categories_id PK
+        varchar name 
+    }
+    faqs {
+        bigint_unsigned id PK
+        text question 
+        text answer 
+        bigint_unsigned category_id 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    faqs_translations {
+        varchar lang_code PK
+        bigint_unsigned faqs_id PK
+        text question 
+        text answer 
+    }
+    jobs {
+        bigint_unsigned id PK
+        varchar queue FK
+        longtext payload 
+        tinyint_unsigned attempts 
+        int_unsigned reserved_at 
+        int_unsigned available_at 
+        int_unsigned created_at 
+    }
+    language_meta {
+        bigint_unsigned lang_meta_id PK
+        varchar lang_meta_code FK
+        varchar lang_meta_origin FK
+        bigint_unsigned reference_id FK
+        varchar reference_type FK
+    }
+    languages {
+        bigint_unsigned lang_id PK
+        varchar lang_name 
+        varchar lang_locale FK
+        varchar lang_code FK
+        varchar lang_flag 
+        tinyint_unsigned lang_is_default FK
+        int lang_order 
+        tinyint_unsigned lang_is_rtl 
+    }
+    media_files {
+        bigint_unsigned id PK
+        bigint_unsigned user_id FK
+        varchar name 
+        varchar alt 
+        bigint_unsigned folder_id FK
+        varchar mime_type 
+        int size 
+        varchar url 
+        text options 
+        timestamp created_at 
+        timestamp updated_at 
+        timestamp deleted_at 
+        varchar visibility 
+    }
+    media_folder_permissions {
+        bigint_unsigned id PK
+        bigint_unsigned folder_id FK
+        bigint_unsigned user_id FK
+        varchar permission 
+        bigint_unsigned granted_by 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    media_folders {
+        bigint_unsigned id PK
+        bigint_unsigned user_id FK
+        varchar name 
+        varchar color 
+        varchar slug 
+        bigint_unsigned parent_id FK
+        timestamp created_at 
+        timestamp updated_at 
+        timestamp deleted_at 
+    }
+    media_settings {
+        bigint_unsigned id PK
+        varchar key 
+        text value 
+        bigint_unsigned media_id 
+        bigint_unsigned user_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    menu_locations {
+        bigint_unsigned id PK
+        bigint_unsigned menu_id FK
+        varchar location 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    menu_nodes {
+        bigint_unsigned id PK
+        bigint_unsigned menu_id FK
+        bigint_unsigned parent_id FK
+        bigint_unsigned reference_id FK
+        varchar reference_type FK
+        varchar url 
+        varchar icon_font 
+        tinyint_unsigned position 
+        varchar title 
+        varchar css_class 
+        varchar target 
+        tinyint_unsigned has_child 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    menus {
+        bigint_unsigned id PK
+        varchar name 
+        varchar slug 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    meta_boxes {
+        bigint_unsigned id PK
+        varchar meta_key 
+        text meta_value 
+        bigint_unsigned reference_id FK
+        varchar reference_type 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    migrations {
+        int_unsigned id PK
+        varchar migration 
+        int batch 
+    }
+    newsletters {
+        bigint_unsigned id PK
+        varchar email 
+        varchar name 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    pages {
+        bigint_unsigned id PK
+        varchar name 
+        longtext content 
+        bigint_unsigned user_id FK
+        varchar image 
+        varchar template 
+        varchar description 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    pages_translations {
+        varchar lang_code PK
+        bigint_unsigned pages_id PK
+        varchar name 
+        varchar description 
+        longtext content 
+    }
+    password_reset_tokens {
+        varchar email PK
+        varchar token 
+        timestamp created_at 
+    }
+    payment_logs {
+        bigint_unsigned id PK
+        varchar payment_method 
+        longtext request 
+        longtext response 
+        varchar ip_address 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    payments {
+        bigint_unsigned id PK
+        varchar currency 
+        bigint_unsigned user_id 
+        varchar charge_id 
+        varchar payment_channel 
+        varchar description 
+        decimal_unsigned amount 
+        decimal payment_fee 
+        bigint_unsigned order_id 
+        varchar status 
+        varchar payment_type 
+        bigint_unsigned customer_id 
+        decimal_unsigned refunded_amount 
+        varchar refund_note 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar customer_type 
+        mediumtext metadata 
+    }
+    personal_access_tokens {
+        bigint_unsigned id PK
+        varchar tokenable_type FK
+        bigint_unsigned tokenable_id 
+        varchar name 
+        varchar token 
+        text abilities 
+        timestamp last_used_at 
+        timestamp expires_at 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    post_categories {
+        bigint_unsigned category_id FK
+        bigint_unsigned post_id FK
+    }
+    post_tags {
+        bigint_unsigned tag_id FK
+        bigint_unsigned post_id FK
+    }
+    posts {
+        bigint_unsigned id PK
+        varchar name 
+        text description 
+        longtext content 
+        varchar status FK
+        bigint_unsigned author_id FK
+        varchar author_type FK
+        tinyint_unsigned is_featured 
+        varchar image 
+        int_unsigned views 
+        varchar format_type 
+        timestamp created_at FK
+        timestamp updated_at 
+    }
+    posts_translations {
+        varchar lang_code PK
+        bigint_unsigned posts_id PK
+        varchar name 
+        text description 
+        longtext content 
+    }
+    push_notification_recipients {
+        bigint_unsigned id PK
+        bigint_unsigned push_notification_id FK
+        varchar user_type FK
+        bigint_unsigned user_id 
+        varchar device_token 
+        varchar platform 
+        varchar status FK
+        timestamp sent_at 
+        timestamp delivered_at 
+        timestamp read_at 
+        timestamp clicked_at 
+        json fcm_response 
+        varchar error_message 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    push_notifications {
+        bigint_unsigned id PK
+        varchar title 
+        text message 
+        varchar type FK
+        varchar target_type 
+        varchar target_value 
+        varchar action_url 
+        varchar image_url 
+        json data 
+        varchar status FK
+        int sent_count 
+        int failed_count 
+        int delivered_count 
+        int read_count 
+        timestamp scheduled_at 
+        timestamp sent_at 
+        bigint_unsigned created_by FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_account_activity_logs {
+        bigint_unsigned id PK
+        varchar action 
+        text user_agent 
+        varchar reference_url 
+        varchar reference_name 
+        varchar ip_address 
+        bigint_unsigned account_id FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_account_packages {
+        bigint_unsigned id PK
+        bigint_unsigned account_id 
+        bigint_unsigned package_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_account_password_resets {
+        varchar email FK
+        varchar token FK
+        timestamp created_at 
+    }
+    re_accounts {
+        bigint_unsigned id PK
+        varchar first_name 
+        varchar last_name 
+        text description 
+        varchar gender 
+        varchar email 
+        varchar username 
+        varchar password 
+        bigint_unsigned avatar_id 
+        date dob 
+        varchar phone 
+        varchar whatsapp 
+        int_unsigned credits 
+        datetime confirmed_at 
+        varchar email_verify_token 
+        varchar remember_token 
+        timestamp created_at 
+        timestamp updated_at 
+        tinyint is_featured 
+        tinyint is_verified 
+        timestamp verified_at 
+        bigint_unsigned verified_by 
+        text verification_note 
+        tinyint is_public_profile 
+        tinyint hide_phone 
+        tinyint hide_email 
+        varchar company 
+        bigint_unsigned country_id 
+        bigint_unsigned state_id 
+        bigint_unsigned city_id 
+        datetime approved_at 
+        datetime blocked_at 
+        text blocked_reason 
+    }
+    re_accounts_translations {
+        varchar lang_code PK
+        bigint_unsigned re_accounts_id PK
+        varchar first_name 
+        varchar last_name 
+        text description 
+    }
+    re_categories {
+        bigint_unsigned id PK
+        varchar name FK
+        text description 
+        longtext content 
+        varchar status FK
+        int_unsigned order 
+        tinyint is_default FK
+        timestamp created_at 
+        timestamp updated_at 
+        bigint_unsigned parent_id FK
+    }
+    re_categories_translations {
+        varchar lang_code PK
+        bigint_unsigned re_categories_id PK
+        varchar name 
+        text description 
+        longtext content 
+    }
+    re_consult_custom_field_options {
+        bigint_unsigned id PK
+        bigint_unsigned custom_field_id 
+        varchar label 
+        varchar value 
+        int order 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_consult_custom_field_options_translations {
+        bigint_unsigned re_consult_custom_field_options_id PK
+        varchar lang_code PK
+        varchar label 
+        varchar value 
+    }
+    re_consult_custom_fields {
+        bigint_unsigned id PK
+        varchar type 
+        tinyint required 
+        varchar name 
+        varchar placeholder 
+        int order 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_consult_custom_fields_translations {
+        bigint_unsigned re_consult_custom_fields_id PK
+        varchar lang_code PK
+        varchar name 
+        varchar placeholder 
+    }
+    re_consults {
+        bigint_unsigned id PK
+        varchar name 
+        varchar email 
+        varchar phone 
+        bigint_unsigned project_id 
+        bigint_unsigned property_id 
+        varchar ip_address 
+        longtext content 
+        text custom_fields 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_coupons {
+        bigint_unsigned id PK
+        varchar type 
+        varchar code 
+        decimal value 
+        int quantity 
+        int_unsigned total_used 
+        datetime expires_date 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_currencies {
+        bigint_unsigned id PK
+        varchar title 
+        varchar symbol 
+        tinyint_unsigned is_prefix_symbol 
+        tinyint_unsigned decimals 
+        varchar number_format_style 
+        tinyint space_between_price_and_currency 
+        int_unsigned order 
+        tinyint is_default 
+        double exchange_rate 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_custom_field_options {
+        bigint_unsigned id PK
+        bigint_unsigned custom_field_id 
+        varchar label 
+        varchar value 
+        int order 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_custom_field_options_translations {
+        varchar lang_code PK
+        bigint_unsigned re_custom_field_options_id PK
+        varchar label 
+        varchar value 
+    }
+    re_custom_field_values {
+        bigint_unsigned id PK
+        varchar name 
+        varchar value 
+        varchar reference_type FK
+        bigint_unsigned reference_id 
+        bigint_unsigned custom_field_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_custom_field_values_translations {
+        varchar lang_code PK
+        bigint_unsigned re_custom_field_values_id PK
+        varchar name 
+        varchar value 
+    }
+    re_custom_fields {
+        bigint_unsigned id PK
+        varchar name 
+        varchar type 
+        int order 
+        tinyint is_global 
+        varchar authorable_type FK
+        bigint_unsigned authorable_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_custom_fields_translations {
+        varchar lang_code PK
+        bigint_unsigned re_custom_fields_id PK
+        varchar name 
+    }
+    re_facilities {
+        bigint_unsigned id PK
+        varchar name 
+        varchar icon 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_facilities_distances {
+        bigint_unsigned facility_id PK
+        bigint_unsigned reference_id PK
+        varchar reference_type PK
+        varchar distance 
+    }
+    re_facilities_translations {
+        varchar lang_code PK
+        bigint_unsigned re_facilities_id PK
+        varchar name 
+    }
+    re_features {
+        bigint_unsigned id PK
+        varchar name 
+        varchar icon 
+        varchar status 
+    }
+    re_features_translations {
+        varchar lang_code PK
+        bigint_unsigned re_features_id PK
+        varchar name 
+    }
+    re_investors {
+        bigint_unsigned id PK
+        varchar name 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar description 
+        varchar avatar 
+    }
+    re_investors_translations {
+        varchar lang_code PK
+        bigint_unsigned re_investors_id PK
+        varchar name 
+        varchar description 
+    }
+    re_invoice_items {
+        bigint_unsigned id PK
+        bigint_unsigned invoice_id 
+        varchar name 
+        varchar description 
+        int_unsigned qty 
+        decimal_unsigned sub_total 
+        decimal_unsigned tax_amount 
+        decimal_unsigned discount_amount 
+        decimal_unsigned amount 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_invoices {
+        bigint_unsigned id PK
+        bigint_unsigned account_id 
+        bigint_unsigned payment_id FK
+        varchar reference_type FK
+        bigint_unsigned reference_id 
+        varchar code 
+        decimal_unsigned sub_total 
+        decimal_unsigned tax_amount 
+        decimal_unsigned discount_amount 
+        varchar coupon_code 
+        decimal_unsigned amount 
+        varchar status FK
+        timestamp paid_at 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    re_packages {
+        bigint_unsigned id PK
+        varchar name 
+        double_unsigned price 
+        bigint_unsigned currency_id 
+        int_unsigned percent_save 
+        int_unsigned number_of_listings 
+        int_unsigned account_limit 
+        tinyint order 
+        tinyint_unsigned is_default 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar description 
+        text features 
+    }
+    re_packages_translations {
+        varchar lang_code PK
+        bigint_unsigned re_packages_id PK
+        varchar name 
+        varchar description 
+        text features 
+    }
+    re_project_categories {
+        bigint_unsigned project_id PK
+        bigint_unsigned category_id PK
+    }
+    re_project_features {
+        bigint_unsigned project_id 
+        bigint_unsigned feature_id 
+    }
+    re_projects {
+        bigint_unsigned id PK
+        varchar name 
+        varchar description 
+        longtext content 
+        text images 
+        longtext floor_plans 
+        varchar location FK
+        bigint_unsigned investor_id 
+        int number_block 
+        smallint number_floor 
+        smallint number_flat 
+        tinyint is_featured FK
+        int featured_priority 
+        date date_finish 
+        date date_sell 
+        decimal price_from 
+        decimal price_to 
+        bigint_unsigned currency_id 
+        bigint_unsigned city_id FK
+        varchar status FK
+        bigint_unsigned author_id 
+        varchar author_type 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar latitude 
+        varchar longitude 
+        varchar zip_code 
+        int_unsigned views 
+        bigint_unsigned country_id 
+        bigint_unsigned state_id FK
+        varchar unique_id 
+        text private_notes 
+    }
+    re_projects_translations {
+        varchar lang_code PK
+        bigint_unsigned re_projects_id PK
+        varchar name 
+        varchar description 
+        longtext content 
+        varchar location FK
+        longtext floor_plans 
+    }
+    re_properties {
+        bigint_unsigned id PK
+        varchar name 
+        varchar type FK
+        varchar description 
+        longtext content 
+        varchar location FK
+        text images 
+        longtext floor_plans 
+        bigint_unsigned project_id FK
+        decimal number_bedroom FK
+        decimal number_bathroom FK
+        int number_floor FK
+        double square FK
+        decimal price FK
+        bigint_unsigned currency_id FK
+        tinyint is_featured FK
+        int featured_priority 
+        bigint_unsigned city_id FK
+        varchar period 
+        varchar status FK
+        bigint_unsigned author_id FK
+        varchar author_type 
+        varchar moderation_status FK
+        varchar reject_reason 
+        date expire_date FK
+        tinyint auto_renew 
+        tinyint never_expired FK
+        timestamp created_at 
+        timestamp updated_at 
+        varchar latitude 
+        varchar longitude 
+        varchar zip_code 
+        int_unsigned views 
+        bigint_unsigned country_id FK
+        bigint_unsigned state_id FK
+        varchar unique_id 
+        text private_notes 
+    }
+    re_properties_translations {
+        varchar lang_code PK
+        bigint_unsigned re_properties_id PK
+        varchar name 
+        varchar description 
+        longtext content 
+        varchar location FK
+        longtext floor_plans 
+    }
+    re_property_categories {
+        bigint_unsigned property_id PK
+        bigint_unsigned category_id PK
+    }
+    re_property_features {
+        bigint_unsigned property_id FK
+        bigint_unsigned feature_id FK
+    }
+    re_reviews {
+        bigint_unsigned id PK
+        bigint_unsigned account_id FK
+        varchar reviewable_type FK
+        bigint_unsigned reviewable_id 
+        tinyint star 
+        varchar content 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    revisions {
+        bigint_unsigned id PK
+        varchar revisionable_type 
+        bigint_unsigned revisionable_id FK
+        bigint_unsigned user_id 
+        varchar key 
+        text old_value 
+        text new_value 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    role_users {
+        bigint_unsigned user_id PK
+        bigint_unsigned role_id PK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    roles {
+        bigint_unsigned id PK
+        varchar slug 
+        varchar name 
+        text permissions 
+        varchar description 
+        tinyint_unsigned is_default 
+        bigint_unsigned created_by FK
+        bigint_unsigned updated_by FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    sessions {
+        varchar id PK
+        bigint_unsigned user_id FK
+        varchar ip_address 
+        text user_agent 
+        longtext payload 
+        int last_activity FK
+    }
+    settings {
+        bigint_unsigned id PK
+        varchar key 
+        text value 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    slugs {
+        bigint_unsigned id PK
+        varchar key FK
+        bigint_unsigned reference_id FK
+        varchar reference_type FK
+        varchar prefix FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    slugs_translations {
+        varchar lang_code PK
+        bigint_unsigned slugs_id PK
+        varchar key 
+        varchar prefix 
+    }
+    social_logins {
+        bigint_unsigned id PK
+        varchar user_type FK
+        bigint_unsigned user_id FK
+        varchar provider FK
+        varchar provider_id 
+        text token 
+        text refresh_token 
+        timestamp token_expires_at 
+        json provider_data 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    states {
+        bigint_unsigned id PK
+        varchar name FK
+        varchar slug 
+        varchar abbreviation 
+        bigint_unsigned country_id FK
+        tinyint order 
+        varchar image 
+        tinyint_unsigned is_default 
+        varchar status FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    states_translations {
+        varchar lang_code PK
+        bigint_unsigned states_id PK
+        varchar name FK
+        varchar slug 
+        varchar abbreviation 
+    }
+    tags {
+        bigint_unsigned id PK
+        varchar name 
+        bigint_unsigned author_id 
+        varchar author_type 
+        text description 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    tags_translations {
+        varchar lang_code PK
+        bigint_unsigned tags_id PK
+        varchar name 
+        text description 
+    }
+    testimonials {
+        bigint_unsigned id PK
+        varchar name 
+        text content 
+        varchar image 
+        varchar company 
+        varchar status 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    testimonials_translations {
+        varchar lang_code PK
+        bigint_unsigned testimonials_id PK
+        varchar name 
+        text content 
+        varchar company 
+    }
+    transactions {
+        bigint_unsigned id PK
+        int_unsigned credits 
+        varchar description 
+        bigint_unsigned user_id 
+        bigint_unsigned account_id 
+        varchar type 
+        bigint_unsigned payment_id 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    user_meta {
+        bigint_unsigned id PK
+        varchar key 
+        text value 
+        bigint_unsigned user_id FK
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    user_settings {
+        bigint_unsigned id PK
+        varchar user_type FK
+        bigint_unsigned user_id 
+        varchar key FK
+        json value 
+        timestamp created_at 
+        timestamp updated_at 
+    }
+    users {
+        bigint_unsigned id PK
+        varchar email 
+        varchar phone 
+        timestamp email_verified_at 
+        varchar password 
+        varchar remember_token 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar first_name 
+        varchar last_name 
+        varchar username 
+        bigint_unsigned avatar_id 
+        tinyint super_user 
+        tinyint manage_supers 
+        text permissions 
+        timestamp last_login 
+        timestamp sessions_invalidated_at 
+    }
+    widgets {
+        bigint_unsigned id PK
+        varchar widget_id 
+        varchar sidebar_id 
+        varchar theme FK
+        tinyint_unsigned position 
+        text data 
+        timestamp created_at 
+        timestamp updated_at 
+    }

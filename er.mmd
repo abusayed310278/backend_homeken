@@ -1,0 +1,57 @@
+erDiagram
+    users {
+        bigint id PK
+        varchar email
+        varchar first_name
+        varchar last_name
+        varchar username
+        varchar password
+    }
+    re_accounts {
+        bigint id PK
+        varchar email
+        varchar first_name
+        varchar last_name
+        varchar username
+        varchar phone
+        varchar password
+    }
+    re_properties {
+        bigint id PK
+        varchar name
+        varchar type
+        decimal price
+        bigint project_id FK
+        bigint city_id FK
+        bigint author_id FK
+        varchar status
+    }
+    re_projects {
+        bigint id PK
+        varchar name
+        bigint investor_id FK
+        decimal price_from
+        decimal price_to
+        bigint city_id FK
+        varchar status
+    }
+    re_categories {
+        bigint id PK
+        varchar name
+        bigint parent_id FK
+        varchar status
+    }
+    re_features {
+        bigint id PK
+        varchar name
+        varchar icon
+    }
+    re_facilities {
+        bigint id PK
+        varchar name
+        varchar icon
+    }
+    
+    users ||--o{ re_properties : "authors"
+    re_accounts ||--o{ re_properties : "authors"
+    re_projects ||--o{ re_properties : "contains"
