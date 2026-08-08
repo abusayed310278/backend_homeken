@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PrivacySettingController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
@@ -24,6 +25,7 @@ Route::prefix('v1')->group(function () {
             return $request->user();
         });
         
-        // Add protected routes here
+        Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
+        Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);
     });
 });
