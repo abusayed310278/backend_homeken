@@ -10,6 +10,12 @@ Route::group([
     
     // Public endpoints (no authentication required)
     
+    // Mobile App Authentication
+    Route::post('register', 'RegisterController@register');
+    Route::post('login', 'LoginController@login');
+    Route::post('password/forgot', 'ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'ResetPasswordController@reset');
+    
     // Properties
     Route::get('properties', 'PropertyController@index');
     Route::get('properties/search', 'PropertyController@getSearch');
@@ -58,6 +64,8 @@ Route::group([
     
     // Authenticated endpoints (require auth:sanctum middleware)
     Route::group(['middleware' => ['auth:sanctum']], function (): void {
+        
+        Route::post('logout', 'LoginController@logout');
         
         // Account profile
         Route::get('account/profile', 'AccountController@profile');
