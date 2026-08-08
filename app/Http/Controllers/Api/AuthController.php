@@ -113,4 +113,28 @@ class AuthController extends Controller
             'message' => 'Password reset successfully.',
         ]);
     }
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $account = $request->user();
+
+        if (!Hash::check($request->current_password, $account->password)) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Current password does not match.',
+            ], 400);
+        }
+
+        $account->password = Hash::make($request->password);
+        $account->save();
+
+        return response()->json([
+            'error' => false,
+            'message' => 'Password changed successfully.',
+        ]);
+    }
 }
