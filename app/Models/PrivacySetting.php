@@ -32,6 +32,6 @@ class PrivacySetting extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\Botble\RealEstate\Models\Account::class, 'user_id');
     }
 }

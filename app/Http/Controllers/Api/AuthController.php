@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use Botble\RealEstate\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -15,19 +15,19 @@ class AuthController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:re_accounts,email',
             'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
+        $account = Account::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $userData = $user->toArray();
-        $userData['token'] = $user->createToken('auth_token')->plainTextToken;
+        $userData = $account->toArray();
+        $userData['token'] = $account->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'error' => false,
@@ -43,16 +43,16 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $account = Account::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (! $account || ! Hash::check($request->password, $account->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
 
-        $userData = $user->toArray();
-        $userData['token'] = $user->createToken('auth_token')->plainTextToken;
+        $userData = $account->toArray();
+        $userData['token'] = $account->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'error' => false,
@@ -65,25 +65,17 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $user = User::where('email', $request->email)->first();
-        if (!$user) {
-            // Return error false anyway for security (don't leak emails)
+        $account = Account::where('email', $request->email)->first();
+        if (!$account) {
             return response()->json([
                 'error' => false,
                 'message' => 'If your email is in our system, an OTP has been sent.',
             ]);
         }
 
-        // Generate a 6-digit OTP
         $otp = rand(100000, 999999);
-        
-        // Store in cache for 10 minutes
         \Illuminate\Support\Facades\Cache::put('password_reset_otp_' . $request->email, $otp, now()->addMinutes(10));
 
-        // In a real app, send this via email/SMS. For now, we return it in debug if needed, or just let it succeed.
-        // Uncomment to debug: \Illuminate\Support\Facades\Log::info("OTP for {$request->email} is $otp");
-        
-        // For development purposes, let's include it in the response so the user can test the UI without an email service configured.
         return response()->json([
             'error' => false,
             'message' => "OTP sent successfully! (Dev mode OTP: $otp)",
@@ -107,10 +99,10 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $user->password = Hash::make($request->password);
-            $user->save();
+        $account = Account::where('email', $request->email)->first();
+        if ($account) {
+            $account->password = Hash::make($request->password);
+            $account->save();
         }
 
         // Clear the OTP
