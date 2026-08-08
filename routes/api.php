@@ -28,6 +28,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/profile/update', [\App\Http\Controllers\Api\ProfileController::class, 'updateProfile']);
         Route::put('/password/change', [AuthController::class, 'changePassword']);
         
+        // Account Data Routes
+        Route::get('/properties', [\App\Http\Controllers\Api\AccountDataController::class, 'getProperties']);
+        Route::get('/consults', [\App\Http\Controllers\Api\AccountDataController::class, 'getConsults']);
+        Route::get('/reviews', [\App\Http\Controllers\Api\AccountDataController::class, 'getReviews']);
+        Route::get('/invoices', [\App\Http\Controllers\Api\AccountDataController::class, 'getInvoices']);
+        
         Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
         Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);
         
