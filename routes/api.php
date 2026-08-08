@@ -20,6 +20,11 @@ Route::prefix('v1')->group(function () {
         ]);
     });
 
+    // Public API Wrappers
+    Route::post('/contacts', [\Botble\Contact\Http\Controllers\API\ContactController::class, 'store']);
+    Route::get('/agents', [\Botble\RealEstate\Http\Controllers\API\AccountController::class, 'index']);
+    Route::get('/posts', [\Botble\Blog\Http\Controllers\API\PostController::class, 'index']);
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
