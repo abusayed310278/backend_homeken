@@ -27,5 +27,9 @@ Route::prefix('v1')->group(function () {
         
         Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
         Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);
+        
+        Route::get('/notifications', [\App\Http\Controllers\Api\NotificationController::class, 'index']);
+        Route::post('/notifications/{id}/read', [\App\Http\Controllers\Api\NotificationController::class, 'markAsRead']);
+        Route::delete('/notifications/{id}', [\App\Http\Controllers\Api\NotificationController::class, 'destroy']);
     });
 });
