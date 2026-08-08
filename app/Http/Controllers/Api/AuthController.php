@@ -27,6 +27,7 @@ class AuthController extends Controller
         ]);
 
         $userData = $account->toArray();
+        $userData['avatar_url'] = $account->avatar_url;
         $userData['token'] = $account->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -52,6 +53,7 @@ class AuthController extends Controller
         }
 
         $userData = $account->toArray();
+        $userData['avatar_url'] = $account->avatar_url;
         $userData['token'] = $account->createToken('auth_token')->plainTextToken;
 
         return response()->json([
