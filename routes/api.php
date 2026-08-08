@@ -25,6 +25,7 @@ Route::prefix('v1')->group(function () {
             return $request->user();
         });
         
+        Route::post('/profile/update', [\App\Http\Controllers\Api\ProfileController::class, 'updateProfile']);
         Route::put('/password/change', [AuthController::class, 'changePassword']);
         
         Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
