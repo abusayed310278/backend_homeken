@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/reviews', [\App\Http\Controllers\Api\AccountDataController::class, 'getReviews']);
         Route::get('/invoices', [\App\Http\Controllers\Api\AccountDataController::class, 'getInvoices']);
         Route::get('/packages', [\App\Http\Controllers\Api\AccountDataController::class, 'getPackages']);
+        Route::post('/packages/subscribe', [\App\Http\Controllers\Api\AccountDataController::class, 'subscribePackage']);
         
         Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
         Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);

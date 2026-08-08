@@ -8,6 +8,7 @@ use Botble\RealEstate\Models\Invoice;
 use Botble\RealEstate\Models\Property;
 use Botble\RealEstate\Models\Review;
 use Botble\RealEstate\Models\Package;
+use Botble\RealEstate\Models\Transaction;
 use Illuminate\Http\Request;
 
 class AccountDataController extends Controller
@@ -98,6 +99,45 @@ class AccountDataController extends Controller
                 'current_credits' => $user->credits,
                 'packages' => $packages
             ],
+        ]);
+    }
+
+    public function subscribePackage(Request $request)
+    {
+        $request->validate([
+            'package_id' => 'required|exists:re_packages,id',
+        ]);
+
+        $user = $request->user();
+        $package = Package::findOrFail($request->input('package_id'));
+
+        // Check account limit
+        if ($package->account_limit && $user->packages()->where('package_id', $package->id)->count() >= $package->account_limit) {
+            return response()->json([
+                'error' => true,
+                'message' => 'You have reached the limit of purchasing this package.',
+            ], 403);
+        }
+
+        // Add credits
+        $user->credits += $package->number_of_listings;
+        $user->save();
+
+        $user->packages()->attach($package);
+
+        Transaction::query()->create([
+            'user_id' => 0,
+            'account_id' => $user->id,
+            'credits' => $package->number_of_listings,
+            'payment_id' => null, // Assuming payment is handled or mocked for now
+        ]);
+
+        return response()->json([
+            'error' => false,
+            'message' => 'Package purchased successfully.',
+            'data' => [
+                'current_credits' => $user->credits,
+            ]
         ]);
     }
 }
