@@ -7,6 +7,7 @@ use Botble\RealEstate\Models\Consult;
 use Botble\RealEstate\Models\Invoice;
 use Botble\RealEstate\Models\Property;
 use Botble\RealEstate\Models\Review;
+use Botble\RealEstate\Models\Package;
 use Illuminate\Http\Request;
 
 class AccountDataController extends Controller
@@ -79,6 +80,24 @@ class AccountDataController extends Controller
         return response()->json([
             'error' => false,
             'data' => $invoices,
+        ]);
+    }
+
+    public function getPackages(Request $request)
+    {
+        $user = $request->user();
+        
+        $packages = Package::where('status', 'published')
+            ->orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'current_credits' => $user->credits,
+                'packages' => $packages
+            ],
         ]);
     }
 }
