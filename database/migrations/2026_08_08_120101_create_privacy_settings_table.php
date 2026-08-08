@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('privacy_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('re_accounts')->onDelete('cascade');
             $table->boolean('read_message')->default(true);
             $table->boolean('search_engine')->default(false);
             $table->boolean('home_city')->default(true);
