@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
     });
 
     // Public API Wrappers
+    Route::get('/home', [\App\Http\Controllers\Api\HomeController::class, 'index']);
     Route::post('/contacts', [\Botble\Contact\Http\Controllers\API\ContactController::class, 'store']);
     Route::get('/agents', [\Botble\RealEstate\Http\Controllers\API\AccountController::class, 'index']);
     Route::get('/posts', [\Botble\Blog\Http\Controllers\API\PostController::class, 'index']);
