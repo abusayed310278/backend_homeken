@@ -3,6 +3,7 @@
 namespace Botble\RealEstate\Http\Controllers\API;
 
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\RealEstate\Enums\ReviewStatusEnum;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\RealEstate\Http\Requests\ReviewRequest;
 use Botble\RealEstate\Http\Resources\ReviewResource;
@@ -30,10 +31,7 @@ class ReviewController extends BaseController
     public function index(int $property_id, Request $request)
     {
         $property = Property::query()
-            ->where([
-                'id' => $property_id,
-                'status' => BaseStatusEnum::PUBLISHED,
-            ])
+            ->where('id', $property_id)
             ->first();
 
         if (! $property) {
@@ -48,7 +46,7 @@ class ReviewController extends BaseController
             'condition' => [
                 'reviewable_id' => $property_id,
                 'reviewable_type' => Property::class,
-                'status' => BaseStatusEnum::PUBLISHED,
+                'status' => ReviewStatusEnum::APPROVED,
             ],
             'order_by' => [
                 $request->input('order_by', 'created_at') => $request->input('order', 'desc'),
@@ -78,10 +76,7 @@ class ReviewController extends BaseController
     public function store(int $property_id, ReviewRequest $request)
     {
         $property = Property::query()
-            ->where([
-                'id' => $property_id,
-                'status' => BaseStatusEnum::PUBLISHED,
-            ])
+            ->where('id', $property_id)
             ->first();
 
         if (! $property) {
@@ -99,8 +94,7 @@ class ReviewController extends BaseController
             ->where([
                 'reviewable_id' => $property_id,
                 'reviewable_type' => Property::class,
-                'author_id' => $account->id,
-                'author_type' => get_class($account),
+                'account_id' => $account->id,
             ])
             ->first();
 
@@ -113,12 +107,11 @@ class ReviewController extends BaseController
 
         $review = Review::query()->create([
             'star' => $request->input('star'),
-            'comment' => $request->input('comment'),
+            'content' => $request->input('content'),
             'reviewable_id' => $property_id,
             'reviewable_type' => Property::class,
-            'author_id' => $account->id,
-            'author_type' => get_class($account),
-            'status' => BaseStatusEnum::PUBLISHED,
+            'account_id' => $account->id,
+            'status' => ReviewStatusEnum::APPROVED,
         ]);
 
         return $this
@@ -189,7 +182,7 @@ class ReviewController extends BaseController
 
         $review->update([
             'star' => $request->input('star'),
-            'comment' => $request->input('comment'),
+            'content' => $request->input('content'),
         ]);
 
         return $this

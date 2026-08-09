@@ -22,6 +22,8 @@ Route::prefix('v1')->group(function () {
 
     // Public API Wrappers
     Route::get('/home', [\App\Http\Controllers\Api\HomeController::class, 'index']);
+    Route::get('/properties/id/{id}', [\Botble\RealEstate\Http\Controllers\API\PropertyController::class, 'show']);
+    Route::get('/properties/{property_id}/reviews', [\Botble\RealEstate\Http\Controllers\API\ReviewController::class, 'index']);
     Route::post('/contacts', [\Botble\Contact\Http\Controllers\API\ContactController::class, 'store']);
     Route::get('/agents', [\Botble\RealEstate\Http\Controllers\API\AccountController::class, 'index']);
     Route::get('/posts', [\Botble\Blog\Http\Controllers\API\PostController::class, 'index']);
@@ -33,6 +35,8 @@ Route::prefix('v1')->group(function () {
         
         Route::post('/profile/update', [\App\Http\Controllers\Api\ProfileController::class, 'updateProfile']);
         Route::put('/password/change', [AuthController::class, 'changePassword']);
+        
+        Route::post('/properties/{property_id}/reviews', [\Botble\RealEstate\Http\Controllers\API\ReviewController::class, 'store']);
         
         // Account Data Routes
         Route::get('/properties', [\App\Http\Controllers\Api\AccountDataController::class, 'getProperties']);
