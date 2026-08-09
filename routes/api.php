@@ -44,6 +44,10 @@ Route::prefix('v1')->group(function () {
         Route::get('/privacy-settings', [PrivacySettingController::class, 'getSettings']);
         Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);
         
+        Route::get('/chats', [\App\Http\Controllers\Api\ChatController::class, 'index']);
+        Route::get('/chats/{id}/messages', [\App\Http\Controllers\Api\ChatController::class, 'show']);
+        Route::post('/chats/{id}/messages', [\App\Http\Controllers\Api\ChatController::class, 'store']);
+        
         Route::get('/notifications', [\App\Http\Controllers\Api\NotificationController::class, 'index']);
         Route::post('/notifications/{id}/read', [\App\Http\Controllers\Api\NotificationController::class, 'markAsRead']);
         Route::delete('/notifications/{id}', [\App\Http\Controllers\Api\NotificationController::class, 'destroy']);

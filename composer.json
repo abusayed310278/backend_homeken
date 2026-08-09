@@ -33,6 +33,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "predis/predis": "^3.0",
+        "pusher/pusher-php-server": "^7.3",
         "wikimedia/composer-merge-plugin": "^2.1"
     },
     "require-dev": {
