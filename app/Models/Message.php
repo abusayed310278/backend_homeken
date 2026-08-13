@@ -19,6 +19,6 @@ class Message extends Model
 
     public function sender()
     {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->belongsTo(\Botble\RealEstate\Models\Account::class, 'sender_id');
     }
 }

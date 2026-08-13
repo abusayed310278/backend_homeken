@@ -15,8 +15,51 @@ Route::prefix('v1')->group(function () {
         return response()->json([
             'error' => false,
             'data' => [
-                'content' => ''
+                'content' => '<p>About us content goes here.</p>'
             ]
+        ]);
+    });
+
+    Route::get('/terms', function () {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'content' => '<h1>Terms of Service</h1><p>Welcome to Homezen. By using our app, you agree to our terms of service.</p>'
+            ]
+        ]);
+    });
+
+    Route::get('/privacy', function () {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'content' => '<h1>Privacy Policy</h1><p>We value your privacy. We do not sell your personal data.</p>'
+            ]
+        ]);
+    });
+
+    Route::get('/help', function () {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'content' => '<h1>Help Center</h1><p>Welcome to the Homezen Help Center. Here you can find answers to frequently asked questions and get support for any issues you might be having.</p>'
+            ]
+        ]);
+    });
+
+    Route::get('/neighborhood-issue', function () {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'content' => '<h1>Submit a Neighborhood Issue</h1><p>If you see a safety concern, noise complaint, or property issue in your neighborhood, please let us know. We take neighborhood harmony very seriously. Contact local authorities for immediate emergencies.</p>'
+            ]
+        ]);
+    });
+
+    Route::post('/feedback', function () {
+        return response()->json([
+            'error' => false,
+            'message' => 'Feedback submitted successfully'
         ]);
     });
 
@@ -39,6 +82,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/properties/{property_id}/reviews', [\Botble\RealEstate\Http\Controllers\API\ReviewController::class, 'store']);
         
         // Account Data Routes
+        Route::get('/trips', [\App\Http\Controllers\Api\AccountDataController::class, 'getTrips']);
         Route::get('/properties', [\App\Http\Controllers\Api\AccountDataController::class, 'getProperties']);
         Route::get('/consults', [\App\Http\Controllers\Api\AccountDataController::class, 'getConsults']);
         Route::get('/reviews', [\App\Http\Controllers\Api\AccountDataController::class, 'getReviews']);
@@ -50,6 +94,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/privacy-settings', [PrivacySettingController::class, 'updateSettings']);
         
         Route::get('/chats', [\App\Http\Controllers\Api\ChatController::class, 'index']);
+        Route::post('/chats', [\App\Http\Controllers\Api\ChatController::class, 'startConversation']);
         Route::get('/chats/{id}/messages', [\App\Http\Controllers\Api\ChatController::class, 'show']);
         Route::post('/chats/{id}/messages', [\App\Http\Controllers\Api\ChatController::class, 'store']);
         

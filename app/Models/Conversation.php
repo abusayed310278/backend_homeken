@@ -10,12 +10,12 @@ class Conversation extends Model
 
     public function userOne()
     {
-        return $this->belongsTo(User::class, 'user_one_id');
+        return $this->belongsTo(\Botble\RealEstate\Models\Account::class, 'user_one_id');
     }
 
     public function userTwo()
     {
-        return $this->belongsTo(User::class, 'user_two_id');
+        return $this->belongsTo(\Botble\RealEstate\Models\Account::class, 'user_two_id');
     }
 
     public function messages()

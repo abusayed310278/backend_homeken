@@ -13,6 +13,39 @@ use Illuminate\Http\Request;
 
 class AccountDataController extends Controller
 {
+    public function getTrips(Request $request)
+    {
+        $user = $request->user();
+        
+        $consults = Consult::where('email', $user->email)
+            ->whereNotNull('property_id')
+            ->with(['property', 'property.city'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $trips = $consults->map(function ($consult) {
+            $property = $consult->property;
+            if (!$property) return null;
+            return [
+                'id' => $property->id,
+                'name' => $property->name,
+                'title' => $property->name,
+                'location' => $property->city->name ?? $property->location,
+                'date' => $consult->created_at->format('M d - M d'),
+                'image_url' => $property->image,
+                'latitude' => $property->latitude,
+                'longitude' => $property->longitude,
+                'created_at' => $consult->created_at,
+            ];
+        })->filter()->values();
+
+        return response()->json([
+            'error' => false,
+            'success' => true,
+            'data' => $trips,
+        ]);
+    }
+
     public function getProperties(Request $request)
     {
         $user = $request->user();

@@ -83,7 +83,7 @@ class ChatController extends Controller
         $data = [
             'id' => $message->id,
             'text' => $message->body,
-            'isMe' => false,
+            'isMe' => true,
             'time' => $message->created_at->format('h:i A'),
             'sender_id' => $userId
         ];
@@ -92,5 +92,37 @@ class ChatController extends Controller
 
         $data['isMe'] = true;
         return response()->json(['error' => false, 'data' => $data]);
+    }
+    public function startConversation(Request $request)
+    {
+        $userId = $request->user()->id;
+        $otherUserId = $request->provider_id;
+        
+        $request->validate(['provider_id' => 'required|integer']);
+
+        $convo = Conversation::where(function ($query) use ($userId, $otherUserId) {
+            $query->where('user_one_id', $userId)->where('user_two_id', $otherUserId);
+        })->orWhere(function ($query) use ($userId, $otherUserId) {
+            $query->where('user_one_id', $otherUserId)->where('user_two_id', $userId);
+        })->first();
+
+        if (!$convo) {
+            $convo = Conversation::create([
+                'user_one_id' => $userId,
+                'user_two_id' => $otherUserId
+            ]);
+        }
+
+        $otherUser = \Botble\RealEstate\Models\Account::find($otherUserId);
+
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'id' => $convo->id,
+                'name' => $otherUser->name ?? ($otherUser->first_name ?? 'Unknown'),
+                'image' => $otherUser->avatar_url ?? 'https://i.pravatar.cc/150?u='.$otherUserId,
+                'online' => true
+            ]
+        ]);
     }
 }

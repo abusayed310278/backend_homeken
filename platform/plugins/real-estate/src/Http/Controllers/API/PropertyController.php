@@ -145,7 +145,7 @@ class PropertyController extends BaseController
         $property = Property::query()
             ->where('id', $slug->reference_id)
             ->where(RealEstateHelper::getPropertyDisplayQueryConditions())
-            ->with(RealEstateHelper::getPropertyRelationsQuery())
+            ->with(array_merge(RealEstateHelper::getPropertyRelationsQuery(), ['features', 'facilities', 'author', 'project', 'project.investor', 'project.city', 'project.state']))
             ->first();
 
         if (! $property) {
@@ -173,7 +173,7 @@ class PropertyController extends BaseController
         $property = Property::query()
             ->where('id', $id)
             ->where(RealEstateHelper::getPropertyDisplayQueryConditions())
-            ->with(RealEstateHelper::getPropertyRelationsQuery())
+            ->with(array_merge(RealEstateHelper::getPropertyRelationsQuery(), ['features', 'facilities', 'author', 'project', 'project.investor', 'project.city', 'project.state']))
             ->first();
 
         if (! $property) {

@@ -17,7 +17,7 @@ class HomeController extends Controller
             ->get(['id', 'name']);
             
         $properties = Property::whereIn('status', ['selling', 'renting'])
-            ->with(['slugable', 'city', 'currency'])
+            ->with(['slugable', 'city', 'country', 'categories', 'currency'])
             ->orderBy('created_at', 'desc')
             ->take(20)
             ->get();
@@ -25,8 +25,10 @@ class HomeController extends Controller
         // Map images correctly since botble stores them as json
         $properties->transform(function ($property) {
             $property->image_url = $property->image_thumb; // Or the first image in images array
-            if ($property->images && count($property->images) > 0) {
-                 $property->image_url = \RvMedia::getImageUrl($property->images[0], 'medium', false, \RvMedia::getDefaultImage());
+            $images = $property->images;
+            if (is_array($images) && !empty($images)) {
+                 $firstImage = \Illuminate\Support\Arr::first($images);
+                 $property->image_url = \RvMedia::getImageUrl($firstImage, 'medium', false, \RvMedia::getDefaultImage());
             } else {
                  $property->image_url = \RvMedia::getDefaultImage();
             }

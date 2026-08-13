@@ -19,6 +19,7 @@ class PropertyResource extends JsonResource
             'images' => collect($this->images)->map(function ($image) {
                 return RvMedia::getImageUrl($image);
             })->toArray(),
+            'views' => $this->views,
             'type' => $this->type,
             'status' => $this->status,
             'moderation_status' => $this->moderation_status,
