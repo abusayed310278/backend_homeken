@@ -107,7 +107,7 @@ class AccountDataController extends Controller
         $user = $request->user();
 
         $invoices = Invoice::where('account_id', $user->id)
-            ->with(['payment'])
+            ->with(['payment', 'reference'])
             ->orderBy('created_at', 'desc')
             ->get();
 

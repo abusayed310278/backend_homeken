@@ -101,5 +101,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/notifications', [\App\Http\Controllers\Api\NotificationController::class, 'index']);
         Route::post('/notifications/{id}/read', [\App\Http\Controllers\Api\NotificationController::class, 'markAsRead']);
         Route::delete('/notifications/{id}', [\App\Http\Controllers\Api\NotificationController::class, 'destroy']);
+        
+        // Stripe Payment API
+        Route::post('/stripe/payment-intent', [\App\Http\Controllers\Api\StripePaymentController::class, 'createPaymentIntent']);
+        Route::post('/stripe/confirm', [\App\Http\Controllers\Api\StripePaymentController::class, 'confirmPayment']);
     });
 });
