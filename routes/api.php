@@ -68,6 +68,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/properties/id/{id}', [\Botble\RealEstate\Http\Controllers\API\PropertyController::class, 'show']);
     Route::get('/properties/{property_id}/reviews', [\Botble\RealEstate\Http\Controllers\API\ReviewController::class, 'index']);
     Route::post('/contacts', [\Botble\Contact\Http\Controllers\API\ContactController::class, 'store']);
+        Route::get('/agents/{identifier}/properties', [\App\Http\Controllers\Api\AccountDataController::class, 'getAgentProperties']);
     Route::get('/agents', [\Botble\RealEstate\Http\Controllers\API\AccountController::class, 'index']);
     Route::get('/posts', [\Botble\Blog\Http\Controllers\API\PostController::class, 'index']);
 
@@ -107,3 +108,4 @@ Route::prefix('v1')->group(function () {
         Route::post('/stripe/confirm', [\App\Http\Controllers\Api\StripePaymentController::class, 'confirmPayment']);
     });
 });
+

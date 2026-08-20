@@ -13,6 +13,30 @@ use Illuminate\Http\Request;
 
 class AccountDataController extends Controller
 {
+        public function getAgentProperties($identifier)
+    {
+        if (is_numeric($identifier)) {
+            $agentId = $identifier;
+        } else {
+            $agent = \Botble\RealEstate\Models\Account::where('username', $identifier)->first();
+            if (!$agent) {
+                return response()->json(['error' => true, 'message' => 'Agent not found'], 404);
+            }
+            $agentId = $agent->id;
+        }
+
+        $properties = Property::where('author_id', $agentId)
+            ->where('author_type', 'Botble\RealEstate\Models\Account')
+            ->with(['currency', 'city', 'state'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'error' => false,
+            'data' => $properties,
+        ]);
+    }
+
     public function getTrips(Request $request)
     {
         $user = $request->user();
@@ -174,3 +198,4 @@ class AccountDataController extends Controller
         ]);
     }
 }
+
